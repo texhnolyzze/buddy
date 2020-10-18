@@ -1,12 +1,11 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <time.h>
-#include <stdio.h>
 #include "buddy.h"
 
 int main() {
-    uint32_t max_level = 4;
-    uint32_t page_size_order = 5;
+    uint32_t max_level = 19;
+    uint32_t page_size_order = 12;
     uint32_t max_blocks = 1UL << max_level;
     buddy_allocator_t *allocator = buddy_allocator_create(max_level, page_size_order);
     block_t **blocks = calloc(max_blocks, sizeof(void *));

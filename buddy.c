@@ -1,4 +1,3 @@
-#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "buddy.h"
@@ -16,7 +15,7 @@ static inline uint32_t parent(uint32_t child) {
 }
 
 static inline uint32_t num_nodes_(uint32_t max_level) {
-    return (1UL << max_level) - 1;
+    return (1UL << (max_level + 1)) - 1;
 }
 
 static inline uint32_t block_to_idx(block_t *block, buddy_allocator_t *allocator) {
@@ -94,6 +93,7 @@ buddy_allocator_t *buddy_allocator_create(uint32_t max_level, uint32_t page_size
     allocator->level[0] = root;
     allocator->level[0]->level = 0;
     allocator->level[0]->address = 0;
+    printf("Max block size is %u bytes\n", block_size_at_level(0, allocator));
     printf("Overhead is %f%%\n", ((double) allocator_size / block_size_at_level(0, allocator)) * 100);
     return allocator;
 }
